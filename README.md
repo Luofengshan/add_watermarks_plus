@@ -56,7 +56,7 @@
 ## 安装和使用
 
 ### 方法一：直接运行（推荐）
-1. 从 [Releases](../release) 页面下载最新版本的 `WatermarkApp.exe`
+1. 从 [Releases](https://github.com/Luofengshan/watermark-app/release) 页面下载最新版本的 `WatermarkApp.exe`
 2. 双击运行，无需安装
 
 ### 方法二：从源码运行
@@ -146,4 +146,4 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ---
 
-如有问题或建议，请在 [Issues](../../issues) 页面提出。
+如有问题或建议，请在 [Issues](https://github.com/your-username/watermark-app/issues) 页面提出。
