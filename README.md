@@ -56,7 +56,7 @@
 ## 安装和使用
 
 ### 方法一：直接运行（推荐）
-1. 从 [Releases](../../releases) 页面下载最新版本的 `WatermarkApp.exe`
+1. 从 [Releases](../release) 页面下载最新版本的 `WatermarkApp.exe`
 2. 双击运行，无需安装
 
 ### 方法二：从源码运行
