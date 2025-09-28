@@ -1,0 +1,15 @@
+{
+  "watermark_text": "Sample Watermark",
+  "watermark_font_family": "Arial",
+  "watermark_font_size": 51,
+  "watermark_color": "#eb0214",
+  "watermark_opacity": 100,
+  "watermark_rotation": 0,
+  "watermark_position": "bottom_right",
+  "watermark_type": "text",
+  "watermark_scale": 100,
+  "output_format": "JPEG",
+  "jpeg_quality": 95,
+  "filename_prefix": "",
+  "filename_suffix": "_watermarked"
+}
