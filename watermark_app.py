@@ -160,9 +160,9 @@ class WatermarkApp:
         
         ttk.Label(type_frame, text="水印类型:").pack(side=tk.LEFT)
         ttk.Radiobutton(type_frame, text="文本", variable=self.watermark_type, 
-                       value="text", command=self.update_preview).pack(side=tk.LEFT, padx=(5, 0))
+                       value="text", command=self.on_watermark_type_change).pack(side=tk.LEFT, padx=(5, 0))
         ttk.Radiobutton(type_frame, text="图片", variable=self.watermark_type, 
-                       value="image", command=self.update_preview).pack(side=tk.LEFT, padx=(5, 0))
+                       value="image", command=self.on_watermark_type_change).pack(side=tk.LEFT, padx=(5, 0))
         
         # Text watermark settings
         self.text_frame = ttk.Frame(settings_frame)
@@ -555,6 +555,16 @@ class WatermarkApp:
             self.watermark_color = color[1]
             self.color_label.config(fg=self.watermark_color)
             self.update_preview()
+            
+    def on_watermark_type_change(self):
+        """Handle watermark type change"""
+        if self.watermark_type.get() == "text":
+            self.text_frame.pack(fill=tk.X, pady=(0, 5))
+            self.image_frame.pack_forget()
+        else:
+            self.image_frame.pack(fill=tk.X, pady=(0, 5))
+            self.text_frame.pack_forget()
+        self.update_preview()
             
     def choose_watermark_image(self):
         """Choose watermark image"""
