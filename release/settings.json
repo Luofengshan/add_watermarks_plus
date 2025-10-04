@@ -1,0 +1,15 @@
+{
+  "watermark_text": "logo",
+  "watermark_font_family": "Arial",
+  "watermark_font_size": 100,
+  "watermark_color": "#ff0000",
+  "watermark_opacity": 100,
+  "watermark_rotation": 0,
+  "watermark_position": "center",
+  "watermark_type": "text",
+  "watermark_scale": 10,
+  "output_format": "PNG",
+  "jpeg_quality": 95,
+  "filename_prefix": "pre",
+  "filename_suffix": "_watermark"
+}
