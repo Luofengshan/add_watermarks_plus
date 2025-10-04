@@ -7,9 +7,12 @@
 ## 📹 演示视频
 
 <video width="800" controls>
-  <source src="说明视频.mp4" type="video/mp4">
+  <source src="demo.mp4" type="video/mp4">
+  <source src="demo.webm" type="video/webm">
   您的浏览器不支持视频播放。
 </video>
+
+> **注意**：如果视频无法播放，请确保您的浏览器支持HTML5视频播放。
 
 *演示：水印添加器的基本使用方法*
 
