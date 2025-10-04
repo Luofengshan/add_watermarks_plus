@@ -6,7 +6,7 @@ A desktop application for adding watermarks to images
 """
 
 import tkinter as tk
-from tkinter import ttk, filedialog, messagebox, colorchooser
+from tkinter import ttk, filedialog, messagebox, colorchooser, simpledialog
 from tkinter.font import families
 import os
 import json
@@ -685,7 +685,7 @@ class WatermarkApp:
         
     def save_template(self):
         """Save current settings as template"""
-        template_name = tk.simpledialog.askstring("保存模板", "请输入模板名称:")
+        template_name = simpledialog.askstring("保存模板", "请输入模板名称:")
         if not template_name:
             return
             
@@ -721,26 +721,47 @@ class WatermarkApp:
             
     def load_template(self):
         """Load a template"""
+        print("DEBUG: load_template called")  # Debug info
         templates_dir = "templates"
         if not os.path.exists(templates_dir):
+            print("DEBUG: Templates directory not found")  # Debug info
             messagebox.showwarning("警告", "没有找到模板目录")
             return
             
         template_files = [f for f in os.listdir(templates_dir) if f.endswith('.json')]
+        print(f"DEBUG: Found {len(template_files)} template files")  # Debug info
         if not template_files:
+            print("DEBUG: No template files found")  # Debug info
             messagebox.showwarning("警告", "没有找到模板文件")
             return
             
         # Create selection dialog
+        print("DEBUG: Creating dialog")  # Debug info
         dialog = tk.Toplevel(self.root)
         dialog.title("选择模板")
         dialog.geometry("300x200")
         dialog.resizable(False, False)
+        dialog.lift()  # Bring to front
+        dialog.focus_force()  # Force focus
         
-        tk.Label(dialog, text="选择要加载的模板:").pack(pady=10)
+        # Center the dialog on screen
+        dialog.update_idletasks()
+        x = (dialog.winfo_screenwidth() // 2) - (300 // 2)
+        y = (dialog.winfo_screenheight() // 2) - (200 // 2)
+        dialog.geometry(f"300x200+{x}+{y}")
         
-        listbox = tk.Listbox(dialog)
-        listbox.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        print(f"DEBUG: Dialog geometry set to: {dialog.geometry()}")
+        
+        # Main content frame
+        main_frame = tk.Frame(dialog)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Label
+        tk.Label(main_frame, text="选择要加载的模板:").pack(pady=(0, 10))
+        
+        # Listbox with fixed height
+        listbox = tk.Listbox(main_frame, height=6)
+        listbox.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
         for template_file in template_files:
             template_name = os.path.splitext(template_file)[0]
@@ -752,12 +773,26 @@ class WatermarkApp:
                 template_name = listbox.get(selection[0])
                 self.load_template_file(template_name)
                 dialog.destroy()
+            else:
+                messagebox.showwarning("警告", "请选择一个模板")
                 
-        btn_frame = tk.Frame(dialog)
-        btn_frame.pack(pady=10)
+        # Button frame at bottom
+        btn_frame = tk.Frame(main_frame)
+        btn_frame.pack(fill=tk.X, pady=(10, 0))
         
-        tk.Button(btn_frame, text="加载", command=load_selected).pack(side=tk.LEFT, padx=5)
-        tk.Button(btn_frame, text="取消", command=dialog.destroy).pack(side=tk.LEFT, padx=5)
+        load_btn = tk.Button(btn_frame, text="加载", command=load_selected, width=8, height=2)
+        load_btn.pack(side=tk.LEFT, padx=(0, 5))
+        
+        cancel_btn = tk.Button(btn_frame, text="取消", command=dialog.destroy, width=8, height=2)
+        cancel_btn.pack(side=tk.LEFT, padx=(5, 0))
+        
+        # Ensure buttons are visible
+        dialog.update()
+        load_btn.update()
+        cancel_btn.update()
+        print(f"DEBUG: Load button created: {load_btn.winfo_viewable()}")
+        print(f"DEBUG: Cancel button created: {cancel_btn.winfo_viewable()}")
+        print(f"DEBUG: Button frame size: {btn_frame.winfo_reqwidth()}x{btn_frame.winfo_reqheight()}")
         
     def load_template_file(self, template_name):
         """Load template from file"""
@@ -802,26 +837,47 @@ class WatermarkApp:
             
     def manage_templates(self):
         """Manage templates (delete)"""
+        print("DEBUG: manage_templates called")  # Debug info
         templates_dir = "templates"
         if not os.path.exists(templates_dir):
+            print("DEBUG: Templates directory not found")  # Debug info
             messagebox.showwarning("警告", "没有找到模板目录")
             return
             
         template_files = [f for f in os.listdir(templates_dir) if f.endswith('.json')]
+        print(f"DEBUG: Found {len(template_files)} template files")  # Debug info
         if not template_files:
+            print("DEBUG: No template files found")  # Debug info
             messagebox.showwarning("警告", "没有找到模板文件")
             return
             
         # Create management dialog
+        print("DEBUG: Creating management dialog")  # Debug info
         dialog = tk.Toplevel(self.root)
         dialog.title("管理模板")
         dialog.geometry("300x250")
         dialog.resizable(False, False)
+        dialog.lift()  # Bring to front
+        dialog.focus_force()  # Force focus
         
-        tk.Label(dialog, text="选择要删除的模板:").pack(pady=10)
+        # Center the dialog on screen
+        dialog.update_idletasks()
+        x = (dialog.winfo_screenwidth() // 2) - (300 // 2)
+        y = (dialog.winfo_screenheight() // 2) - (250 // 2)
+        dialog.geometry(f"300x250+{x}+{y}")
         
-        listbox = tk.Listbox(dialog, selectmode=tk.MULTIPLE)
-        listbox.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        print(f"DEBUG: Management dialog geometry set to: {dialog.geometry()}")
+        
+        # Main content frame
+        main_frame = tk.Frame(dialog)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Label
+        tk.Label(main_frame, text="选择要删除的模板:").pack(pady=(0, 10))
+        
+        # Listbox with fixed height
+        listbox = tk.Listbox(main_frame, selectmode=tk.MULTIPLE, height=8)
+        listbox.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
         for template_file in template_files:
             template_name = os.path.splitext(template_file)[0]
@@ -843,11 +899,23 @@ class WatermarkApp:
                     except Exception as e:
                         messagebox.showerror("错误", f"删除模板失败 {template_name}: {str(e)}")
                         
-        btn_frame = tk.Frame(dialog)
-        btn_frame.pack(pady=10)
+        # Button frame at bottom
+        btn_frame = tk.Frame(main_frame)
+        btn_frame.pack(fill=tk.X, pady=(10, 0))
         
-        tk.Button(btn_frame, text="删除选中", command=delete_selected).pack(side=tk.LEFT, padx=5)
-        tk.Button(btn_frame, text="关闭", command=dialog.destroy).pack(side=tk.LEFT, padx=5)
+        delete_btn = tk.Button(btn_frame, text="删除选中", command=delete_selected, width=10, height=2)
+        delete_btn.pack(side=tk.LEFT, padx=(0, 5))
+        
+        close_btn = tk.Button(btn_frame, text="关闭", command=dialog.destroy, width=8, height=2)
+        close_btn.pack(side=tk.LEFT, padx=(5, 0))
+        
+        # Ensure buttons are visible
+        dialog.update()
+        delete_btn.update()
+        close_btn.update()
+        print(f"DEBUG: Delete button created: {delete_btn.winfo_viewable()}")
+        print(f"DEBUG: Close button created: {close_btn.winfo_viewable()}")
+        print(f"DEBUG: Management button frame size: {btn_frame.winfo_reqwidth()}x{btn_frame.winfo_reqheight()}")
         
     def save_settings(self):
         """Save current settings"""
@@ -907,8 +975,6 @@ class WatermarkApp:
         self.root.destroy()
 
 def main():
-    import tkinter.simpledialog
-    
     root = tk.Tk()
     app = WatermarkApp(root)
     

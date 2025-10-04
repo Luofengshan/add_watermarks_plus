@@ -5,11 +5,11 @@
   "watermark_color": "#eb0214",
   "watermark_opacity": 100,
   "watermark_rotation": 0,
-  "watermark_position": "bottom_right",
-  "watermark_type": "text",
-  "watermark_scale": 100,
+  "watermark_position": "custom",
+  "watermark_type": "image",
+  "watermark_scale": 46,
   "output_format": "JPEG",
   "jpeg_quality": 95,
-  "filename_prefix": "",
+  "filename_prefix": "marks",
   "filename_suffix": "_watermarked"
 }
